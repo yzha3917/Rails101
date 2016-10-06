@@ -2,7 +2,7 @@ class GroupsController < ApplicationController
 
   before_action :authenticate_user! , only: [:new, :create, :edit, :update, :destroy]
   before_action :find_group_and_check_permission, only: [:edit, :update, :destroy]
- 
+
 
 
   def index
@@ -18,10 +18,6 @@ class GroupsController < ApplicationController
     @group = Group.find(params[:id])
   end
 
-  def edit
-     find_group_and_check_permission
-  end
-
   def create
     @group = Group.new(group_params)
     @group.user = current_user
@@ -34,10 +30,10 @@ class GroupsController < ApplicationController
   end
 
 
+  def edit
+  end
+
   def update
-
-    find_group_and_check_permission
-
     if @group.update(group_params)
       redirect_to groups_path, notice: "Update Success"
     else
@@ -46,11 +42,10 @@ class GroupsController < ApplicationController
   end
 
   def destroy
-    find_group_and_check_permission
-
     @group.destroy
     redirect_to groups_path, alert: "Group deleted"
   end
+
 
 
 
